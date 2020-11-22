@@ -20,4 +20,9 @@ def file_handler(message):
     bot.send_document(message.from_user.id, doc)
 
 
+@bot.message_handler(commands=['check'])
+def help_handler(message):
+    bot.send_message(message.from_user.id, "Автоматическая привязка")
+
+
 bot.polling(none_stop=True, interval=0)
