@@ -9,4 +9,10 @@ def start_handler(message):
     bot.send_message(message.from_user.id, "Привет! Это бот-помощник по дисциплине Индивидуальный проект.")
 
 
+@bot.message_handler(commands=['file'])
+def file_handler(message):
+    doc = open('requirements.txt', 'rb')
+    bot.send_document(message.from_user.id, doc)
+
+
 bot.polling(none_stop=True, interval=0)
