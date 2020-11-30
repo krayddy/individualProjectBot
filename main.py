@@ -45,10 +45,10 @@ def start_handler(message):
 
 @bot.message_handler(commands=['help'])
 def help_handler(message):
-    bot.send_message(message.from_user.id, "Доступные команды: \n")
+    bot.send_message(message.from_user.id, "Доступные команды:\n/Unity - мануал по Unity и Vuforia")
 
 
-@bot.message_handler(commands=["Unity", "Юнити"])
+@bot.message_handler(commands=["Unity", "unity"])
 def unity_start(message):
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text="Далее", callback_data="u1")
