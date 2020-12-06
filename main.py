@@ -36,34 +36,88 @@ unity = [
 "**Сборка проекта**\nДля того чтобы превратить проект из Unity Editor в приложении на Android или IOS нужно совершить «сборку» проекта. Для этого перейдите во вкладку File — Build Settings",
 "В появившемся окне выберите Android/IOS. Если кнопка Build and Run серая и не нажимается, то сначала нажмите кнопку Switch Platform, а затем кнопку Build and Run. Далее, выберите место на компьютере где вы хотите сохранить приложение в формате .apk. Далее, данный файл .apk переместите на телефон и установите. После установки на телефон и наведения на распознаваемые изображения вы будете видеть ваши модели. Поздравляем, вы сделали свое приложение с дополненной реальностью!"
 ]
+
+blender = [
+"**Скачивание и установка Blender**\nДля начала работы с Blender требуется установить программу. Перейдите на [официальный сайт](https://www.blender.org/) . Нажмите на кнопку Download Blender",
+"Вас направит на страницу с выбором операционной системы. Если у вас операционная система Windows, то ничего менять не нужно. Просто нажмите на кнопку Download Blender ",
+"Если у вас другая операционная система, то выбираете ее и также нажимаете кнопку, чтобы начать загрузку установочного файла",
+"После скачивания файла откройте его и начните процесс установки (нажимайте на кнопку Next, пока не начнется процесс установки)",
+"**Создание файла**\nПосле запуска программы вас встретит начальное окно, в котором необходимо выбрать в столбце создать файл пункт General и кликнуть на него ",
+"После этого откроется среда, в которой и будет происходить работа с моделью. За основу модели автоматически создается куб ",
+"**Основы Blender**\nНеобходимые базовые принципы работы с Blender:\n\n1. Для выделения объекта используется левая кнопка мыши\n2. Для рассмотрения объекта с разных сторон необходимо зажать колесико мыши и двигать ей в нужную сторону\n3. Для приближения/отдаления используется колесико мыши.\n\nВ верхней части программы есть режимы, в которых вы непосредственно и будете работать с моделью. В данной работе вам понадобится всего два из них, а именно Layout и Modeling. В режиме Layout показывается итоговый результат модели, а также в нем вы можете перемещать ее в пространстве. В режиме Modeling вы будете менять размеры и форму модели, а также делить ее на части.",
+"**Создание пирамиды с сечением**\nФигурой по умолчанию в Blender является куб. Вы можете его как удалить и заменить другой базовой фигурой, так и взять за основу будущей модели. В данном примере необходимо будет построить пирамиду, поэтому куб как раз подойдет в качестве основы модели. Для начала перейдите в режим Modeling. Это можно сделать при помощи клавиши TAB или его выборе в контекстном меню. Далее с зажатой клавишей SHIFT выделите четыре верхние вершины куба, кликнув на них ",
+"Далее нажмите сочетание клавиш SHIFT+S, которое откроет меню",
+"В этом меню находятся различные способы влиять на фигуру. После чего выберите Cursor to Selected. Данная функция переместит фокус курсора в центр верхней грани куба ",
+"Далее снова используйте сочетание клавиш SHIFT+S и выберите пункт Selection to Cursor, в следствие чего вершины соединятся в точке где находился ваш курсор. В итоге получается пирамида ",
+"**Деление фигуры на части**\nЧтобы фигура в дальнейшем корректно отображалась в Unity, мы разделим ее на 3 части, а именно: сечение нашей пирамиды, верхняя и нижняя части, которые сечение делит в пирамиде. Для этого перейдите в режим Modeling. В левой части экрана есть различные инструменты для работы с фигурой. Вам необходимо использовать инструмент нож, который поможет в делении фигуры на части ",
+"Для прямого надреза выберите инструмент нож и кликните на нижнюю вершину пирамиды. После этого нажмите клавишу Z, чтобы перейти в режим, в котором надрез пройдет через всю фигуру. Далее выберите точку на противоположной грани и нажмите правую кнопку мыши ",
+"В итоге получается линия, которая проходит через всю пирамиду – это и будет первый надрез ",
+"Чтобы отсоединить верхнюю часть фигуры, зажмите клавишу Сtrl, выделите верхнюю вершину пирамиды и точки надреза ",
+"Далее в верхнем меню выберите Меш — Разделить — Выделение ",
+"В итоге получаются две отдельные фигуры ",
+"Далее необходимо переместить верхнюю часть в сторону, чтобы с ней было удобнее работать. Для этого перейдите в режим Layout. В правой части выберите свою фигуру",
+"В левой части программы выберите режим Переместить",
+"Передвиньте верхнюю часть в сторону",
+"После того как вы разделили модель на две части, нужно сделать их цельными. Для это перейдите в режим Modeling и выделите 4 точки с зажатой клавишей SHIFT ",
+"Затем в верхнем меню выберите Грань — Заполнить ",
+"Проделайте те же самые шаги для второй модели. В итоге вы получите две цельные фигуры. Теперь нужно отрезать от верхней фигуры тонкое сечение, чтобы в дальнейшем в Unity вы могли с ним отдельно работать. Для этого проделайте все то же самое, что и в прошлых пунктах.",
+"В конечном итоге должны получиться три фигуры как на образце ",
+"После того как вы разделили свою начальную фигуру на три части, сохраните каждый объект отдельно в формате .obj. Чтобы это сделать кликните правой кнопкой мыши по фигуре и нажмите Копировать объекты ",
+"Далее откройте еще одно окно Blender. Удалите начальный объект с помощью клавиши Del и после клика правой кнопкой мыши по экрану, вставьте свою фигуру. Так вам необходимо сделать для всех трех фигур.",
+"После все фигуры необходимо сохранить в формате .obj. Для этого в левом верхнем углу нажмите Файл – Экспортировать – Wavefront (.obj) ",
+"У вас откроется окно, в котором нужно выбрать путь файла и нажать кнопку Экспортировать OBJ",
+"В итоге вы получаете три отдельные фигуры в формате .obj, с которыми далее будете работать в Unity "
+]
 #endregion
 
 @bot.message_handler(commands=['start'])
 def start_handler(message):
-    bot.send_message(message.from_user.id, "Привет! Это бот-помощник по дисциплине Индивидуальный проект. Комманда /help поможет начать")
+    bot.send_message(message.from_user.id, "Привет! Это бот-помощник по дисциплине Индивидуальный проект. Команда /help поможет начать")
 
 
 @bot.message_handler(commands=['help'])
 def help_handler(message):
-    bot.send_message(message.from_user.id, "Доступные команды:\n/Unity - мануал по Unity и Vuforia")
+    bot.send_message(message.from_user.id, "Доступные команды:\n/Unity - мануал по Unity и Vuforia\n/Blender - мануал по Blender\n/UnityDownload - загрузить руководство по Unity и Vuforia документом\n/BlenderDownload - загрузить руководство по Blender документом")
 
 
-@bot.message_handler(commands=["Unity", "unity"])
+@bot.message_handler(commands=["Unity", "Vuforia"])
 def unity_start(message):
     keyboard = types.InlineKeyboardMarkup()
     callback_button = types.InlineKeyboardButton(text="Далее", callback_data="u1")
     keyboard.add(callback_button)
     bot.send_photo(message.chat.id, photo=open("unityImages/1.png", "rb"), caption=unity[0], reply_markup=keyboard, parse_mode="Markdown")
 
-
-def keyboard_builder(callback_data):
+@bot.message_handler(commands=["Blender"])
+def blender_start(message):
     keyboard = types.InlineKeyboardMarkup()
-    next_button = types.InlineKeyboardButton(text="Далее", callback_data="u" + str(callback_data+1))
-    prv_button = types.InlineKeyboardButton(text="Назад", callback_data="u" + str(callback_data-1))
+    callback_button = types.InlineKeyboardButton(text="Далее", callback_data="b1")
+    keyboard.add(callback_button)
+    bot.send_photo(message.chat.id, photo=open("blenderImages/1.png", "rb"), caption=blender[0], reply_markup=keyboard, parse_mode="Markdown")
+
+
+@bot.message_handler(commands=["BlenderDownload"])
+def blender_download(message):
+    doc = open("Manual_po_Blenderu.docx", "rb")
+    bot.send_document(message.chat.id, doc)
+
+
+@bot.message_handler(commands=["UnityDownload"])
+def unity_download(message):
+    doc = open("Manual_po_Yuniti.docx", "rb")
+    bot.send_document(message.chat.id, doc)
+
+
+def keyboard_builder(callback_data, manual):
+    keyboard = types.InlineKeyboardMarkup()
+    next_button = types.InlineKeyboardButton(text="Далее", callback_data=manual + str(callback_data+1))
+    prv_button = types.InlineKeyboardButton(text="Назад", callback_data=manual + str(callback_data-1))
+    to_begin = types.InlineKeyboardButton(text="В начало", callback_data=manual + str(0))
     if callback_data != 0:
         keyboard.add(prv_button)
     if callback_data != 28:
         keyboard.add(next_button)
+    if callback_data == 28:
+        keyboard.add(to_begin)
     return keyboard
 
 
@@ -71,8 +125,15 @@ def keyboard_builder(callback_data):
 def callback_inline(call):
     if call.message:
         call_data = int(call.data[1:])
-        bot.edit_message_media(media=types.InputMedia(type="photo", media=open(f"unityImages/{call_data+1}.png", "rb")), chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data))
-        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data), caption=unity[call_data], parse_mode="Markdown")
+        manual_data = call.data[0]
+        if manual_data == "u":
+            imagePath = f"unityImages/{call_data+1}.png"
+            caption = unity[call_data]
+        else:
+            imagePath = f"blenderImages/{call_data + 1}.png"
+            caption = blender[call_data]
+        bot.edit_message_media(media=types.InputMedia(type="photo", media=open(imagePath, "rb")), chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data))
+        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data), caption=caption, parse_mode="Markdown")
 
 
 bot.polling(none_stop=True, interval=0)
