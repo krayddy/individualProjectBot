@@ -1,110 +1,473 @@
+# This Python file uses the following encoding: utf-8
+
 import telebot
 from telebot import types
 
 
-bot = telebot.TeleBot("1284427462:AAHPyWAvdRGT104ol7fCp4PXELJmAi55EwU")
+bot = telebot.TeleBot("1284427462:AAHPyWAvdRGT104ol7fCp4PXELJmAi55EwU", parse_mode="Markdown")
 
 #region variables
-unity = [
-"**Установка**\nДля начала работы с Unity требуется перейти на официальный сайт [Unity](https://unity.com) и нажать кнопку Get started",
-"После перехода на новую страницу выбрать вкладку Individual и далее, нажать на кнопку Get Started ",
-"После перехода на новую страницу выбрать Start Here на вкладке First-Time Users. После нажатия данной кнопки начнется скачивание установщика Unity Hub – специального установщика для продуктов Unity. В нем будет необходимо выбрать папку, в которую вы хотите в дальнейшем установить Unity Hub и сам Unity. После завершения откройте Unity Hub. Для дальнейшей установки Unity понадобится Unity ID. Регистрацию можно совершить либо на официальном сайте, либо в приложении, следуя подсказкам. При выборе лицензии Unity выбирайте индивидуальную бесплатную.",
-"**Установка Unity Editor и создание проекта**\nВ открытом Unity Hub выберите вкладку Installs и далее нажмите на кнопку Add.",
-"Вам будет предложено несколько версий Unity. Советуем установить версию, которую рекомендует сам Unity Hub. Нажмите на кнопку Next.  ",
-"Далее вам будут представлены несколько модулей на установку. Так как наше AR-приложение будет на IOS/Android - выбирайте данные модули (как показано на скриншоте). ",
-"После завершения установки Unity Editor Кликните на вкладку Projects, затем на кнопку New. Откроется Окно создания проекта. Выберите опцию 3D и нажмите кнопку Create",
-"**Добавление Vuforia в Unity**\nПерейдите на [официальный сайт Vuforia](https://developer.vuforia.com). Зарегистрируйтесь, и после регистрации нажмите на вкладку Downloads",
-"Далее нажмите на ссылку Add Vuforia to a Unity Project. Начнется скачивание файла Vuforia.unitypackage. После того, как загрузка завершится, откроется окно импорта Package (пакетов расширений для Unity). Нажмите кнопку Import.",
-"После завершения всех операций, вы сможете пользоваться объектами Vuforia Engine. Но для их использования потребуется включение настроек в Unity Editor. Откройте Unity Editor, выберите вкладки Edit — Project Settings — Player — XR Settings и поставьте галочку Vuforia Augmented Reality Supported.",
-"Далее необходимо получить лицензионный ключ и создать базу изображений для корректной работы Vuforia. Для этого переходим на [официальный сайт Vuforia](https://developer.vuforia.com) и кликаем на вкладку Develop.",
-"Для того чтобы получить лицензионный ключ, зайдите в свой созданный аккаунт, и нажмите на кнопку Get Development Key. Дайте название этому ключу.",
-"После этого, данный ключ появится в вашем списке лицензий",
-"Нажмите на созданный ключ. Откроется страница с вашей лицензией. Вы увидите окно с различными символами, кликните на него.",
-"Далее необходимо вернуться обратно в Unity Editor. Для начала работы с Vuforia удалите объект Main Camera. Это можно сделать с помощью клавиши Delete или нажав ПКМ и выбрав опцию Delete в контекстном меню",
-"Далее переходим во вкладку GameObject — Vuforia Engine — AR Camera и выбираем эту опцию.",
-"При появлении окна нажимаем кнопку Import. Теперь в нашем проекте есть AR Camera, которая является основой работы нашего приложения дополненной реальности. Камера используется непосредственно для отрисовки различных объектов.",
-"Далее необходимо добавить ключ с сайта Vuforia в наше приложение. Для этого нажимаем на AR Camera, и в окне справа нажимаем на Open Device Configuration.",
-"После этого справа появятся опции камеры, где будет место для добавления ключа с сайта Vuforia, который мы получили ранее. Вставляем ключ с сайта в место на скриншоте.",
-"Далее необходимо создать базу распознаваемых изображений. Для этого переходим на [официальный сайт Vuforia](https://developer.vuforia.com). Переходим во вкладку Develop — Target Manager и нажимаем Add Database.",
-"В появившемся окне выбираем Device и вводим имя базы данных. После этого она появится в списке баз данных, нажмите на нее.",
-"Для того, чтобы добавить распознаваемое изображение, нажмите Add Target.",
-"В появившемся окне выбираем Single Image, выбираем файл на вашем компьютере нужного формата (.jpg или .png), ставим в поле Width значение 5 и вписываем любое имя.",
-"В дальнейшем, при необходимости, можно также добавлять распознаваемые изображения. После добавления изображений, нажмите Download Database(All) и выберите Unity Editor. Точно так же открываем скачанный файл формата Unity Package и нажимаем в появившемся окне Import.",
-"Перейдите обратно в Unity Editor. Теперь можно начать добавлять распознаваемые объекты в наш проект. Для этого нажмите ПКМ на левой панели объектов и выберите Vuforia Engine — Image. ",
-"После этого добавится изображение, которое будет распознаваться приложением. Для выбора разных распознаваемых изображений необходимо в Image Target Behaviour на вкладке Image Target выбрать другое изображение (если они имеются в базе). ",
-"Чтобы добавить к этому изображению 3D модель, добавьте свой объект в формате .obj в Unity Editor, в нижнюю панель, а потом перенесите данную модель к ImageTarget как дочерний (как на скриншоте). Этот шаг можно повторять для каждого распознаваемого изображения/объекта.",
-"**Сборка проекта**\nДля того чтобы превратить проект из Unity Editor в приложении на Android или IOS нужно совершить «сборку» проекта. Для этого перейдите во вкладку File — Build Settings",
-"В появившемся окне выберите Android/IOS. Если кнопка Build and Run серая и не нажимается, то сначала нажмите кнопку Switch Platform, а затем кнопку Build and Run. Далее, выберите место на компьютере где вы хотите сохранить приложение в формате .apk. Далее, данный файл .apk переместите на телефон и установите. После установки на телефон и наведения на распознаваемые изображения вы будете видеть ваши модели. Поздравляем, вы сделали свое приложение с дополненной реальностью!"
-]
 
-blender = [
-"**Скачивание и установка Blender**\nДля начала работы с Blender требуется установить программу. Перейдите на [официальный сайт](https://www.blender.org/) . Нажмите на кнопку Download Blender",
-"Вас направит на страницу с выбором операционной системы. Если у вас операционная система Windows, то ничего менять не нужно. Просто нажмите на кнопку Download Blender ",
-"Если у вас другая операционная система, то выбираете ее и также нажимаете кнопку, чтобы начать загрузку установочного файла",
-"После скачивания файла откройте его и начните процесс установки (нажимайте на кнопку Next, пока не начнется процесс установки)",
-"**Создание файла**\nПосле запуска программы вас встретит начальное окно, в котором необходимо выбрать в столбце создать файл пункт General и кликнуть на него ",
-"После этого откроется среда, в которой и будет происходить работа с моделью. За основу модели автоматически создается куб ",
-"**Основы Blender**\nНеобходимые базовые принципы работы с Blender:\n\n1. Для выделения объекта используется левая кнопка мыши\n2. Для рассмотрения объекта с разных сторон необходимо зажать колесико мыши и двигать ей в нужную сторону\n3. Для приближения/отдаления используется колесико мыши.\n\nВ верхней части программы есть режимы, в которых вы непосредственно и будете работать с моделью. В данной работе вам понадобится всего два из них, а именно Layout и Modeling. В режиме Layout показывается итоговый результат модели, а также в нем вы можете перемещать ее в пространстве. В режиме Modeling вы будете менять размеры и форму модели, а также делить ее на части.",
-"**Создание пирамиды с сечением**\nФигурой по умолчанию в Blender является куб. Вы можете его как удалить и заменить другой базовой фигурой, так и взять за основу будущей модели. В данном примере необходимо будет построить пирамиду, поэтому куб как раз подойдет в качестве основы модели. Для начала перейдите в режим Modeling. Это можно сделать при помощи клавиши TAB или его выборе в контекстном меню. Далее с зажатой клавишей SHIFT выделите четыре верхние вершины куба, кликнув на них ",
-"Далее нажмите сочетание клавиш SHIFT+S, которое откроет меню",
-"В этом меню находятся различные способы влиять на фигуру. После чего выберите Cursor to Selected. Данная функция переместит фокус курсора в центр верхней грани куба ",
-"Далее снова используйте сочетание клавиш SHIFT+S и выберите пункт Selection to Cursor, в следствие чего вершины соединятся в точке где находился ваш курсор. В итоге получается пирамида ",
-"**Деление фигуры на части**\nЧтобы фигура в дальнейшем корректно отображалась в Unity, мы разделим ее на 3 части, а именно: сечение нашей пирамиды, верхняя и нижняя части, которые сечение делит в пирамиде. Для этого перейдите в режим Modeling. В левой части экрана есть различные инструменты для работы с фигурой. Вам необходимо использовать инструмент нож, который поможет в делении фигуры на части ",
-"Для прямого надреза выберите инструмент нож и кликните на нижнюю вершину пирамиды. После этого нажмите клавишу Z, чтобы перейти в режим, в котором надрез пройдет через всю фигуру. Далее выберите точку на противоположной грани и нажмите правую кнопку мыши ",
-"В итоге получается линия, которая проходит через всю пирамиду – это и будет первый надрез ",
-"Чтобы отсоединить верхнюю часть фигуры, зажмите клавишу Сtrl, выделите верхнюю вершину пирамиды и точки надреза ",
-"Далее в верхнем меню выберите Меш — Разделить — Выделение ",
-"В итоге получаются две отдельные фигуры ",
-"Далее необходимо переместить верхнюю часть в сторону, чтобы с ней было удобнее работать. Для этого перейдите в режим Layout. В правой части выберите свою фигуру",
-"В левой части программы выберите режим Переместить",
-"Передвиньте верхнюю часть в сторону",
-"После того как вы разделили модель на две части, нужно сделать их цельными. Для это перейдите в режим Modeling и выделите 4 точки с зажатой клавишей SHIFT ",
-"Затем в верхнем меню выберите Грань — Заполнить ",
-"Проделайте те же самые шаги для второй модели. В итоге вы получите две цельные фигуры. Теперь нужно отрезать от верхней фигуры тонкое сечение, чтобы в дальнейшем в Unity вы могли с ним отдельно работать. Для этого проделайте все то же самое, что и в прошлых пунктах.",
-"В конечном итоге должны получиться три фигуры как на образце ",
-"После того как вы разделили свою начальную фигуру на три части, сохраните каждый объект отдельно в формате .obj. Чтобы это сделать кликните правой кнопкой мыши по фигуре и нажмите Копировать объекты ",
-"Далее откройте еще одно окно Blender. Удалите начальный объект с помощью клавиши Del и после клика правой кнопкой мыши по экрану, вставьте свою фигуру. Так вам необходимо сделать для всех трех фигур.",
-"После все фигуры необходимо сохранить в формате .obj. Для этого в левом верхнем углу нажмите Файл – Экспортировать – Wavefront (.obj) ",
-"У вас откроется окно, в котором нужно выбрать путь файла и нажать кнопку Экспортировать OBJ",
-"В итоге вы получаете три отдельные фигуры в формате .obj, с которыми далее будете работать в Unity "
-]
+#region keyboards
+main_menu_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+main_menu_keyboard.add('Unity', 'Blender', 'РУПД', 'Загрузка документов')
+
+rupd_menu_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_keyboard.add('Пояснительная записка', 'Результаты освоения дисциплины',
+                       'Содержание учебного предмета', 'Тематическое планирование с указанием количества часов',
+                       'Оценка индивидуального проекта', 'Учебно-методическое обеспечение дисциплины', 'Назад')
+
+rupd_menu_block2_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block2_keyboard.add('Метапредметные результаты', 'Предметные результаты', 'Назад')
+
+rupd_menu_block2_block1_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block2_block1_keyboard.add('Регулятивные универсальные учебные действия',
+                                     'Познавательные универсальные учебные действия',
+                                     'Коммуникативные универсальные учебные действия', 'Назад')
+
+rupd_menu_block2_block2_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block2_block2_keyboard.add('Обучаемый получит представление', 'Обучаемый сможет',
+                                     'Обучаемый научится', 'Назад')
+
+rupd_menu_block3_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block3_keyboard.add('Часть 1. Основы проектной деятельности',
+                              'Часть 2. Выполнение обучаемым индивидуального проекта с применением '
+                              'AR-технологии-проекта «оживление учебника» в виде простого AR-приложения для'
+                              ' Android-устройства с помощью ПО Blender, Unity3D и Vuforia', 'Назад')
+
+rupd_menu_block3_block1_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block3_block1_keyboard.add('Тема 1. Введение в проектную культуру', 'Тема 2. Инициализация проекта',
+                                     'Тема 3. Базовое проектирование и исследование',
+                                     'Тема 4. Информационные ресурсы проектной и исследовательской деятельности',
+                                     'Тема 5. Презентация результатов проектной деятельности',
+                                     'Тема 6. Защита результатов проектной и исследовательской деятельности',
+                                     'Тема 7. Коммуникативные навыки',
+                                     'Тема 8. Рефлексия проекта. Индивидуальный прогресс', 'Назад')
+
+rupd_menu_block5_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block5_keyboard.add('Оценка метапредметных результатов обучения по уровню '
+                              'сформированности Универсальных Учебных Действий (УУД)',
+                              'Оценка сформированности ключевых компетенций учащихся, '
+                              'которые относятся к общему (метапредметному) содержанию образования',
+                              'Оценка сформированности ключевых компетенций учащихся «4к»', 'Назад')
+
+rupd_menu_block5_block1_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block5_block1_keyboard.add('Требования, устанавленные ФГОС к результатам образования '
+                                     '(ФГОС ООО, п.II.8, ФГОС СОО, п.II.6)',
+                                     'Метапредметные результаты включают освоенные обучающимися',
+                                     'Основные особенности оценки личностных, метапредметных и предметных '
+                                     'результатов обучения',
+                                     'Особенности индивидуального проекта',
+                                     'Материалы, которые должны быть представлены к защите итогового проекта',
+                                     'Организация защиты проекта',
+                                     'Процедура оценивания сформированности УУД при защите реализованного проекта',
+                                     'Критерии оценивания итогового проекта',
+                                     'Подходы к оцениванию результатов итогового процесса',
+                                     'Уровни сформированности навыков проектной деятельности (интегральный подход)',
+                                     'Назад')
+
+rupd_menu_block5_block2_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block5_block2_keyboard.add('Компетентность отличается', 'Три уровня компетенций', 'Ключевые компетенции',
+                                     'Уровни компетенций и способы деятельности учащихся', 'Назад')
+
+rupd_menu_block5_block3_keyboard = types.ReplyKeyboardMarkup(row_width=1)
+rupd_menu_block5_block3_keyboard.add('К 2020 году каждый востребованный сотрудник должен будет уметь',
+                                     'Система “4К”', 'Подробнее о каждом из четырех «К»',
+                                     'Оценка прогресса в критическом мышлении, креативности, коммуникации и кооперации',
+                                     'Назад')
+#endregion
+
+#region block_messages
+main_menu_message = "Содержание\n" \
+                    "1. Unity\n" \
+                    "2. Blender\n" \
+                    "3. РУПД\n" \
+                    "4. Загрузка документов"
+rupd_main_menu_message = "Содержание:\n" \
+                         "1. Пояснительная записка\n" \
+                         "2. Результаты освоения дисциплины\n" \
+                         "3. Содержание учебного предмета\n" \
+                         "4. Тематическое планирование с указанием количества часов\n" \
+                         "5. Оценка индивидуального проекта\n" \
+                         "6. Учебно-методическое обеспечение дисциплины"
+rupd_menu_block2_message = "Содержание:\n" \
+                           "1. Метапредметные результаты\n" \
+                           "2. Предметные результаты"
+rupd_menu_block2_block1_message = "Содержание:\n" \
+                                  "1. Регулятивные универсальные учебные действия\n" \
+                                  "2. Познавательные универсальные учебные действия\n" \
+                                  "3. Коммуникативные универсальные учебные действия"
+rupd_menu_block2_block2_message = "Содержание:\n" \
+                                  "1. Обучаемый получит представление\n" \
+                                  "2. Обучаемый сможет\n" \
+                                  "3. Обучаемый научится"
+rupd_menu_block3_message = "Содержание:\n" \
+                           "1. Часть 1. Основы проектной деятельности\n" \
+                           "2. Часть 2. Выполнение обучаемым индивидуального проекта с применением " \
+                           "AR-технологии-проекта «оживление учебника» в виде простого AR-приложения " \
+                           "для Android-устройства с помощью ПО Blender, Unity3D и Vuforia"
+rupd_menu_block3_block1_message = "Содержание:\n" \
+                                  "1. Введение в проектную культуру\n" \
+                                  "2. Инициализация проекта\n" \
+                                  "3. Базовое проектирование и исследование\n" \
+                                  "4. Информационные ресурсы проектной и исследовательской деятельности\n" \
+                                  "5. Презентация результатов проектной деятельности\n" \
+                                  "6. Защита результатов проектной и исследовательской деятельности\n" \
+                                  "7. Коммуникативные навыки\n" \
+                                  "8. Рефлексия проекта. Индивидуальный прогресс"
+rupd_menu_block5_message = "Содержание:\n" \
+                           "1. \n" \
+                           "2. \n" \
+                           "3. "
+rupd_menu_block5_block1_message = "Содержание:\n" \
+                                  "1. Требования, устанавленные ФГОС к результатам образования " \
+                                  "(ФГОС ООО, п.II.8, ФГОС СОО, п.II.6)\n" \
+                                  "2. Метапредметные результаты включают освоенные обучающимися\n" \
+                                  "3. Основные особенности оценки личностных, метапредметных и предметных " \
+                                  "результатов обучения\n" \
+                                  "4. Особенности индивидуального проекта\n" \
+                                  "5. Материалы, которые должны быть представлены к защите итогового проекта\n" \
+                                  "6. Организация защиты проекта\n" \
+                                  "7. Процедура оценивания сформированности УУД при защите реализованного проекта\n" \
+                                  "8. Критерии оценивания итогового проекта\n" \
+                                  "9. Подходы к оцениванию результатов итогового процесса\n" \
+                                  "10. Уровни сформированности навыков проектной деятельности (интегральный подход)"
+rupd_menu_block5_block2_message = "Содержание:\n" \
+                                  "1. Компетентность отличается\n" \
+                                  "2. Три уровня компетенций\n" \
+                                  "3. Ключевые компетенции\n" \
+                                  "4. Уровни компетенций и способы деятельности учащихся"
+rupd_menu_block5_block3_message = "Содержание:\n" \
+                                  "1. К 2020 году каждый востребованный сотрудник должен будет уметь\n" \
+                                  "2. Система “4К”\n" \
+                                  "3. Подробнее о каждом из четырех «К»\n" \
+                                  "4. Оценка прогресса в критическом мышлении, креативности, коммуникации и кооперации"
+rupd_menu_block6_message = "[1.Индивидуальный проект. 10-11 классы: учебное пособие для общеобразовательных " \
+                           "организаций / [М. В. Половкова, А. В. Носов, Т. В. Половкова, М. В. Майсак]. - " \
+                           "Москва: Просвещение, 2019. - 159 с.](https://www.labirint.ru/books/649611/) \n\n" \
+                           "[2.Индивидуальный проект: рабочая тетрадь. 10-11 классы. Учебное пособие/Л.Е.Спиридонова," \
+                           " Б.А. Комаров,О.В.Маркова,В.М.Стацунова. – СПб.КАРО, 2019. – 104с.]" \
+                           "(https://cutt.ly/bgnU3d7)\n\n" \
+                           "[3.Компетентностный подход в обучении: учебно-методическое пособие / авт.-сост." \
+                           " О.В. Еремкина, Н.Б. Федорова, Д.В. Морин, М.А. Борисова; Ряз. гос. ун-т им. " \
+                           "С.А. Есенина. – Рязань, 2010 – 48 с.]" \
+                           "(https://www.rsu.edu.ru/wp-content/uploads/2015/11/Kompetentnostny-podhod-v-obuchenii.pdf)\n\n" \
+                           "[4. Компетенции “4К”: формирование и оценка на уроке: Практические рекомендации" \
+                           "/ авт.-сост. М. А. Пинская, А. М. Михайлова. – 76с.]" \
+                           "(https://publications.hse.ru/mirror/pubs/share/direct/345295660.pdf)\n\n" \
+                           "[5.Проектная и исследовательская деятельность школьников в контексте требований ФГОС" \
+                           "/Материалы Л.И.Асановой, к.п.н., доцента ГБОУ ДПО " \
+                           "«Нижегородский институт развития образования».]" \
+                           "(https://rosuchebnik.ru/upload/iblock/733/733b6b3d76aab4abae1ff92989545fbf.pdf)"
+#endregion
+
 #endregion
 
 @bot.message_handler(commands=['start'])
 def start_handler(message):
-    bot.send_message(message.from_user.id, "Привет! Это бот-помощник по дисциплине Индивидуальный проект. Команда /help поможет начать")
-
-
-@bot.message_handler(commands=['help'])
-def help_handler(message):
-    bot.send_message(message.from_user.id, "Доступные команды:\n/Unity - мануал по Unity и Vuforia\n/Blender - мануал по Blender\n/UnityDownload - загрузить руководство по Unity и Vuforia документом\n/BlenderDownload - загрузить руководство по Blender документом")
-
-
-@bot.message_handler(commands=["Unity", "Vuforia"])
-def unity_start(message):
     keyboard = types.InlineKeyboardMarkup()
-    callback_button = types.InlineKeyboardButton(text="Далее", callback_data="u1")
-    keyboard.add(callback_button)
-    bot.send_photo(message.chat.id, photo=open("unityImages/1.png", "rb"), caption=unity[0], reply_markup=keyboard, parse_mode="Markdown")
-
-@bot.message_handler(commands=["Blender"])
-def blender_start(message):
-    keyboard = types.InlineKeyboardMarkup()
-    callback_button = types.InlineKeyboardButton(text="Далее", callback_data="b1")
-    keyboard.add(callback_button)
-    bot.send_photo(message.chat.id, photo=open("blenderImages/1.png", "rb"), caption=blender[0], reply_markup=keyboard, parse_mode="Markdown")
+    keyboard.add(types.InlineKeyboardButton(text="Меню", callback_data="m0"))
+    bot.send_message(message.from_user.id, "Привет! Это бот-помощник по дисциплине Индивидуальный проект. Команда /menu поможет начать", reply_markup=keyboard)
 
 
-@bot.message_handler(commands=["BlenderDownload"])
-def blender_download(message):
-    doc = open("Manual_po_Blenderu.docx", "rb")
-    bot.send_document(message.chat.id, doc)
+@bot.message_handler(commands=['menu'])
+def main_menu_handler(message):
+    send = bot.send_message(message.from_user.id, main_menu_message, reply_markup=main_menu_keyboard)
+    bot.register_next_step_handler(send, menu_handler)
+
+@bot.message_handler(content_types=['text'])
+def menu_handler(message):
+    if message.text == 'РУПД':
+        send = bot.send_message(message.from_user.id, text=rupd_main_menu_message, reply_markup=rupd_menu_keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_handler)
+    if message.text == 'Unity':
+        bot.send_message(message.from_user.id, text="В разработке")
+    if message.text == 'Blender':
+        bot.send_message(message.from_user.id, text="В разработке")
+    if message.text == 'Загрузка документов':
+        bot.send_message(message.from_user.id, text="В разработке")
 
 
-@bot.message_handler(commands=["UnityDownload"])
-def unity_download(message):
-    doc = open("Manual_po_Yuniti.docx", "rb")
-    bot.send_document(message.chat.id, doc)
+@bot.message_handler(content_types=['text'])
+def rupd_main_menu_handler(message):
+    if message.text == "Пояснительная записка":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_handler)
+    if message.text == "Результаты освоения дисциплины":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block2_message, reply_markup=rupd_menu_block2_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_handler)
+    if message.text == "Содержание учебного предмета":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block3_message, reply_markup=rupd_menu_block3_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_handler)
+    if message.text == "Тематическое планирование с указанием количества часов":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок 4", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_handler)
+    if message.text == "Оценка индивидуального проекта":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_message, reply_markup=rupd_menu_block5_message)
+        bot.register_next_step_handler(send, rupd_menu_block5_handler)
+    if message.text == "Учебно-методическое обеспечение дисциплины":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок 6", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=main_menu_message, reply_markup=main_menu_keyboard)
+        bot.register_next_step_handler(send, menu_handler)
+
+@bot.message_handler(content_types="text")
+def rupd_menu_block2_handler(message):
+    if message.text == "Метапредметные результаты":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block2_block1_message, reply_markup=rupd_menu_block2_block1_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block1_handler)
+    if message.text == "Предметные результаты":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block2_block2_message, reply_markup=rupd_menu_block2_block2_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block2_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_main_menu_message, reply_markup=rupd_menu_keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_message)
+
+
+@bot.message_handler(content_types=["text"])
+def rupd_menu_block2_block1_handler(message):
+    if message.text == "Регулятивные универсальные учебные действия":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок1 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block1_handler)
+    if message.text == "Познавательные универсальные учебные действия":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок1 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block1_handler)
+    if message.text == "Коммуникативные универсальные учебные действия":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок1 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block1_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block2_message, reply_markup=rupd_menu_block2_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_handler)
+
+
+@bot.message_handler(content_types=["text"])
+def rupd_menu_block2_block2_handler(message):
+    if message.text == "Обучаемый получит представление":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок2 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block2_handler)
+    if message.text == "Обучаемый сможет":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок2 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block2_handler)
+    if message.text == "Обучаемый научится":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок2 блок2 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_block2_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block2_message, reply_markup=rupd_menu_block2_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block2_handler)
+
+
+@bot.message_handler(content_types="text")
+def rupd_menu_block3_handler(message):
+    if message.text == "Метапредметные результаты":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block3_block1_message, reply_markup=rupd_menu_block3_block1_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Часть 2. Выполнение обучаемым индивидуального проекта с применением AR-технологии-проекта " \
+                       "«оживление учебника» в виде простого AR-приложения для Android-устройства с помощью " \
+                       "ПО Blender, Unity3D и Vuforia":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_main_menu_message, reply_markup=rupd_menu_keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_message)
+
+
+@bot.message_handler(content_types=['text'])
+def rupd_menu_block3_block1_handler(message):
+    if message.text == "Тема 1. Введение в проектную культуру":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 2. Инициализация проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 3. Базовое проектирование и исследование":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 4. Информационные ресурсы проектной и исследовательской деятельности":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 4", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 5. Презентация результатов проектной деятельности":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 5", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 6. Защита результатов проектной и исследовательской деятельности":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 6", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 7. Коммуникативные навыки":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 7", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Тема 8. Рефлексия проекта. Индивидуальный прогресс":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок3 блок1 8", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_block1_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block3_message, reply_markup=rupd_menu_block3_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block3_handler)
+
+
+@bot.message_handler(content_types=['text'])
+def rupd_menu_block5_handler(message):
+    if message.text == "Оценка метапредметных результатов обучения по уровню сформированности Универсальных Учебных Действий (УУД)":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_block1_message, reply_markup=rupd_menu_block5_block1_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Оценка сформированности ключевых компетенций учащихся, которые относятся к общему (метапредметному) содержанию образования":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_block2_message, reply_markup=rupd_menu_block5_block2_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block2_handler)
+    if message.text == "Оценка сформированности ключевых компетенций учащихся «4к»":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_block3_message, reply_markup=rupd_menu_block5_block3_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block3_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_main_menu_message, reply_markup=rupd_menu_keyboard)
+        bot.register_next_step_handler(send, rupd_main_menu_message)
+
+
+@bot.message_handler(content_types=['text'])
+def rupd_menu_block5_block1_handler(message):
+    if message.text == "Требования, устанавленные ФГОС к результатам образования (ФГОС ООО, п.II.8, ФГОС СОО, п.II.6)":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Метапредметные результаты включают освоенные обучающимися":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Основные особенности оценки личностных, метапредметных и предметных результатов обучения":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Особенности индивидуального проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 4", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Материалы, которые должны быть представлены к защите итогового проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 5", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Организация защиты проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 6", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Процедура оценивания сформированности УУД при защите реализованного проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 7", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Критерии оценивания итогового проекта":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 8", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Подходы к оцениванию результатов итогового процесса":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 9", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Уровни сформированности навыков проектной деятельности (интегральный подход)":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок1 10", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block1_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_message,
+                                reply_markup=rupd_menu_block5_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_handler)
+
+
+@bot.message_handler(content_types=['text'])
+def rupd_menu_block5_block2_handler(message):
+    if message.text == "Компетентность отличается":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок2 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block2_handler)
+    if message.text == "Три уровня компетенций":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок2 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block2_handler)
+    if message.text == "Ключевые компетенции":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок2 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block2_handler)
+    if message.text == "Уровни компетенций и способы деятельности учащихся":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок2 4", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block2_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_message,
+                                reply_markup=rupd_menu_block5_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_handler)
+
+
+@bot.message_handler(content_types=['text'])
+def rupd_menu_block5_block3_handler(message):
+    if message.text == "К 2020 году каждый востребованный сотрудник должен будет уметь":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок3 1", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block3_handler)
+    if message.text == "Система “4К”":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок3 2", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block3_handler)
+    if message.text == "Подробнее о каждом из четырех «К»":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок3 3", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block3_handler)
+    if message.text == "Оценка прогресса в критическом мышлении, креативности, коммуникации и кооперации":
+        keyboard = types.InlineKeyboardMarkup()
+        keyboard.add(types.InlineKeyboardButton(text="Назад", callback_data="block1"))
+        send = bot.send_message(message.from_user.id, text="Презентация блок5 блок3 4", reply_markup=keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_block3_handler)
+    if message.text == "Назад":
+        send = bot.send_message(message.from_user.id, text=rupd_menu_block5_message,
+                                reply_markup=rupd_menu_block5_keyboard)
+        bot.register_next_step_handler(send, rupd_menu_block5_handler)
+
 
 
 def keyboard_builder(callback_data, manual):
@@ -124,16 +487,14 @@ def keyboard_builder(callback_data, manual):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
     if call.message:
-        call_data = int(call.data[1:])
-        manual_data = call.data[0]
-        if manual_data == "u":
-            imagePath = f"unityImages/{call_data+1}.png"
-            caption = unity[call_data]
-        else:
-            imagePath = f"blenderImages/{call_data + 1}.png"
-            caption = blender[call_data]
-        bot.edit_message_media(media=types.InputMedia(type="photo", media=open(imagePath, "rb")), chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data))
-        bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data), caption=caption, parse_mode="Markdown")
+
+
+
+        if call.data == "":
+            send = bot.send_message(call.message.from_user.id, text="")
+            bot.register_next_step_handler(send, menu_handler)
+        #bot.edit_message_media(media=types.InputMedia(type="photo", media=open(imagePath, "rb")), chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data))
+        #bot.edit_message_caption(chat_id=call.message.chat.id, message_id=call.message.message_id, reply_markup=keyboard_builder(call_data, manual_data), caption=caption, parse_mode="Markdown")
 
 
 bot.polling(none_stop=True, interval=0)
