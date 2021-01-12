@@ -391,7 +391,7 @@ def callback_inline(call):
 def start_handler(message):
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row("/menu")
-    bot.send_photo(message.from_user.id, caption="Привет! Это бот-помощник по дисциплине Индивидуальный проект. Команда /menu поможет начать\n\nПожалуйста, пользуйтесь меню. Если оно не открылось автоматически, нажмите на кнопку, показанную на картинке.", reply_markup=keyboard, photo=open("startImage.png", "rb"))
+    bot.send_photo(message.from_user.id, caption=start_message, reply_markup=keyboard, photo=open("startImage.png", "rb"))
 
 
 @bot.message_handler(commands=['menu'])
