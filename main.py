@@ -10,10 +10,10 @@ bot = telebot.TeleBot("1284427462:AAHPyWAvdRGT104ol7fCp4PXELJmAi55EwU", parse_mo
 
 #region keyboards
 main_menu_keyboard = types.ReplyKeyboardMarkup(True, row_width=1)
-main_menu_keyboard.add('Unity', 'Blender', 'РУПД', 'Загрузка документов')
+main_menu_keyboard.add('РУПД', 'Blender', 'Unity', 'Загрузка документов')
 
 download_menu_keyboard = types.ReplyKeyboardMarkup(True, row_width=1)
-download_menu_keyboard.add('РУПД', 'Unity', 'Blender', 'Назад')
+download_menu_keyboard.add('РУПД', 'Blender', 'Unity', 'Назад')
 
 unity_menu_keyboard = types.ReplyKeyboardMarkup(True, row_width=1)
 unity_menu_keyboard.add('Вспомним предыдущие шаги', 'Установка Unity', 'Регистрация', 'Установка Unity Editor',
@@ -88,6 +88,12 @@ rupd_menu_block5_block3_keyboard.add('К 2020 году каждый востре
 #endregion
 
 #region block_messages
+start_message = 'IndividualProjectBot - виртуальный бот помощник по дисциплине "Индивидуальный проект". Он предназначен для методического сопровождения преподавателей в условиях дистанционного и смешанного обучения.\n\n' \
+                'Чат-бот содержит в себе:\n\n' \
+                '1. Примерную рабочую учебную программы дисциплины (РУПД), которая предоставит информацию о формировании навыков и компетенций у школьников в результате выполнения проектов, методике оценивания работ, содержании учебного предмета и тематическом планировании с указанием количества часов.\n\n' \
+                '2. Методические рекомендации по Blender и Unity, цель которых заключается в рассмотрении примера (визуализации геометрической фигуры) для более наглядного понимания обучающимися проекта.\n\n' \
+                'У вас есть возможность не только просмотреть каждый из документов непосредственно в самом чат-боте, но и скачать их себе на устройство, для более удобного пользования.\n\n' \
+                'Команда /menu поможет начать. Пожалуйста, пользуйтесь меню. Если оно не открылось автоматически, то нажмите на кнопку, выделенную на картинке.'
 main_menu_message = "Содержание:\n" \
                     "1. Unity\n" \
                     "2. Blender\n" \
@@ -329,18 +335,25 @@ blender = (
 #endregion
 
 
-def inline_keyboard_builder_and_image_path(call_data, max):
-    keyboard = types.InlineKeyboardMarkup(row_width=2)
-    next_button = types.InlineKeyboardButton(text="Далее",
-                                             callback_data=f"{call_data[0]} {call_data[1]} {call_data[2]} {call_data[3]} {int(call_data[4]) + 1} {max}")
-    prv_button = types.InlineKeyboardButton(text="Назад",
-                                             callback_data=f"{call_data[0]} {call_data[1]} {call_data[2]} {call_data[3]} {int(call_data[4]) - 1} {max}")
-    if int(call_data[4]) != 1:
-        keyboard.add(prv_button)
-    if int(call_data[4]) != max and int(call_data[4]) != max + 1:
-        keyboard.add(next_button)
-    return keyboard, f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}.JPG".replace(
-            "/block0", "")
+def inline_keyboard_builder_and_image_path(call_data, max, call):
+    try:
+        keyboard = types.InlineKeyboardMarkup(row_width=2)
+        next_button = types.InlineKeyboardButton(text="Далее",
+                                                 callback_data=f"{call_data[0]} {call_data[1]} {call_data[2]} {call_data[3]} {int(call_data[4]) + 1} {max}")
+        prv_button = types.InlineKeyboardButton(text="Назад",
+                                                 callback_data=f"{call_data[0]} {call_data[1]} {call_data[2]} {call_data[3]} {int(call_data[4]) - 1} {max}")
+        if int(call_data[4]) != 1:
+            keyboard.add(prv_button)
+        if int(call_data[4]) != max and int(call_data[4]) != max + 1:
+            keyboard.add(next_button)
+        return keyboard, f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}.JPG".replace(
+                "/block0", "")
+    except Exception:
+        keyboard = types.ReplyKeyboardMarkup()
+        keyboard.add("/menu")
+        bot.send_message(call.message.chat.id, text="Упс, что-то сломалось, давайте начнем заново",
+                         reply_markup=keyboard)
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -353,7 +366,7 @@ def callback_inline(call):
         else:
             jpg = ".jpg"
         image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{call_data[4]}{jpg}".replace("/block0", "")
-        keyboard = inline_keyboard_builder_and_image_path(call_data, max)[0]
+        keyboard = inline_keyboard_builder_and_image_path(call_data, max, call)[0]
         try:
             bot.edit_message_media(message_id=call.message.message_id,
                                chat_id=call.message.chat.id,
@@ -369,8 +382,10 @@ def callback_inline(call):
                                          chat_id=call.message.chat.id,
                                          caption=blender[int(call_data[1][5]) - 1][int(call_data[4]) - 1],
                                          reply_markup=keyboard)
-        except FileNotFoundError:
-            return
+        except Exception:
+            keyboard = types.ReplyKeyboardMarkup()
+            keyboard.add("/menu")
+            bot.send_message(call.message.chat.id, text="Упс, что-то сломалось, давайте начнем заново", reply_markup=keyboard)
 
 @bot.message_handler(commands=['start'])
 def start_handler(message):
@@ -386,23 +401,29 @@ def main_menu_handler(message):
 
 
 def final_menu_block(message, callback_data, current_menu_block_handler):
-    call_data = callback_data.split(' ')
-    if call_data[0] == "rupdImages":
-        jpg = ".JPG"
-    else:
-        jpg = ".jpg"
-    image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}{jpg}".replace(
-        "/block0", "")
-    keyboard = types.InlineKeyboardMarkup()
-    caption = ""
-    if int(call_data[4]) <= int(call_data[5]):
-        keyboard.add(types.InlineKeyboardButton(text="Далее", callback_data=callback_data))
-    if call_data[0] == 'unityImages':
-        caption = unity[int(call_data[1][5]) - 1][int(call_data[4]) - 2]
-    if call_data[0] == 'blenderImages':
-        caption = blender[int(call_data[1][5]) - 1][int(call_data[4]) - 2]
-    send = bot.send_photo(message.from_user.id, photo=open(image_path, "rb"), reply_markup=keyboard, caption=caption)
-    bot.register_next_step_handler(send, current_menu_block_handler)
+    try:
+        call_data = callback_data.split(' ')
+        if call_data[0] == "rupdImages":
+            jpg = ".JPG"
+        else:
+            jpg = ".jpg"
+        image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}{jpg}".replace(
+            "/block0", "")
+        keyboard = types.InlineKeyboardMarkup()
+        caption = ""
+        if int(call_data[4]) <= int(call_data[5]):
+            keyboard.add(types.InlineKeyboardButton(text="Далее", callback_data=callback_data))
+        if call_data[0] == 'unityImages':
+            caption = unity[int(call_data[1][5]) - 1][int(call_data[4]) - 2]
+        if call_data[0] == 'blenderImages':
+            caption = blender[int(call_data[1][5]) - 1][int(call_data[4]) - 2]
+        send = bot.send_photo(message.from_user.id, photo=open(image_path, "rb"), reply_markup=keyboard, caption=caption)
+        bot.register_next_step_handler(send, current_menu_block_handler)
+    except Exception:
+        keyboard = types.ReplyKeyboardMarkup()
+        keyboard.add("/menu")
+        bot.send_message(message.chat.id, text="Упс, что-то сломалось, давайте начнем заново",
+                         reply_markup=keyboard)
 
 
 @bot.message_handler(content_types=['text'])
