@@ -348,7 +348,11 @@ def callback_inline(call):
     if call.message:
         call_data = call.data.split(' ')
         max = int(call_data[5])
-        image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{call_data[4]}.JPG".replace("/block0", "")
+        if call_data[0] == "rupdImages":
+            jpg = ".JPG"
+        else:
+            jpg = ".jpg"
+        image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{call_data[4]}{jpg}".replace("/block0", "")
         keyboard = inline_keyboard_builder_and_image_path(call_data, max)[0]
         try:
             bot.edit_message_media(message_id=call.message.message_id,
@@ -383,7 +387,11 @@ def main_menu_handler(message):
 
 def final_menu_block(message, callback_data, current_menu_block_handler):
     call_data = callback_data.split(' ')
-    image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}.JPG".replace(
+    if call_data[0] == "rupdImages":
+        jpg = ".JPG"
+    else:
+        jpg = ".jpg"
+    image_path = f"{call_data[0]}/{call_data[1]}/{call_data[2]}/{call_data[3]}/{int(call_data[4]) - 1}{jpg}".replace(
         "/block0", "")
     keyboard = types.InlineKeyboardMarkup()
     caption = ""
